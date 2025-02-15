@@ -28,8 +28,8 @@ namespace MVCOnlineTicariOtomasyon.Models.Sınıflar
         [Column(TypeName = "Varchar")]
         [StringLength(250)]
         public string UrunGorsel { get; set; }
-
-        public Kategori Kategori { get; set; } // her ürünümün bir kategorisi olabilir
+        public int Kategoriid { get; set; }
+        public virtual Kategori Kategori { get; set; } // her ürünümün bir kategorisi olabilir
         public ICollection<SatisHareket> SatisHarekets { get; set; }
     }
 }
