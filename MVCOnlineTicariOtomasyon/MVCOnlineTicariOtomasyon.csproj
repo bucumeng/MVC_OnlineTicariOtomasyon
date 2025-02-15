@@ -289,6 +289,8 @@
     <Content Include="Web\src\scss\_variables.scss" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Kategori\KategoriEkle.cshtml" />
+    <Content Include="Views\Kategori\KategoriGetir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
