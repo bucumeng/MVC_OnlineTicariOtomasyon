@@ -12,12 +12,19 @@ namespace MVCOnlineTicariOtomasyon.Controllers
         Context c = new Context();
         public ActionResult Index()
         {
-            var urunler = c.Uruns.ToList();
+            var urunler = c.Uruns.Where(x => x.Durum == true).ToList();
             return View(urunler);
         }
         [HttpGet]
         public ActionResult YeniUrun()
         {
+            List<SelectListItem> deger1 = (from x in c.Kategoris.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.KategoriAd,
+                                                Value =x.KategoriID.ToString()
+                                           }).ToList();
+            ViewBag.dgr1 = deger1;
             return View();
 
         }
@@ -28,6 +35,38 @@ namespace MVCOnlineTicariOtomasyon.Controllers
             c.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult UrunSil(int id)
+        {
+            var deger = c.Uruns.Find(id);
+            deger.Durum = false;
+            c.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult UrunGetir(int id)
+        {
 
+            List<SelectListItem> deger1 = (from x in c.Kategoris.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.KategoriAd,
+                                               Value = x.KategoriID.ToString()
+                                           }).ToList();
+            ViewBag.dgr1 = deger1;
+            var urundeger = c.Uruns.Find(id);
+            return View("UrunGetir", urundeger);
+        }
+        public ActionResult UrunGuncelle(Urun p)
+        {
+            var urn = c.Uruns.Find(p.UrunId);
+            urn.UrunAd = p.UrunAd;
+            urn.Marka = p.Marka;
+            urn.AlisFiyat = p.AlisFiyat;
+            urn.SatisFiyat = p.SatisFiyat;
+            urn.Stok = p.Stok;
+            urn.UrunGorsel = p.UrunGorsel;
+            urn.Kategoriid = p.Kategoriid;
+            c.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
